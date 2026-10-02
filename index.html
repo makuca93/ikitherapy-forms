@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<meta name="referrer" content="no-referrer">
+<title>İki Therapy — Client Forms</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Fraunces:opsz,wght@9..144,600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#2b2d33; --muted:#6b6f78; --card:#ffffff; --card-line:#e2e2ea; --paper:#fbfafc;
+    --highlight:#d9e3f0; --highlight-line:#c3d3e6; --grad-start:#dfe7f4; --grad-end:#f6e3ea;
+    --red:#c15a6b; --red-bg:#f8e2e6; --green:#4f8f7c; --green-bg:#e2f0ea;
+  }
+  *{box-sizing:border-box;}
+  html{-webkit-text-size-adjust:100%;}
+  body{
+    margin:0; color:var(--ink); background:var(--paper);
+    font-family:'IBM Plex Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+    font-size:16px; line-height:1.55;
+  }
+  .top{
+    background:linear-gradient(135deg, var(--grad-start), var(--grad-end));
+    padding:28px 16px 24px;
+  }
+  .top-inner, main{max-width:680px; margin:0 auto;}
+  .top h1{font-family:'Fraunces', Georgia, serif; font-weight:600; font-size:28px; line-height:1.15; margin:0 0 6px;}
+  .top p{margin:0; color:var(--muted); font-size:14.5px;}
+  main{padding:20px 16px 64px;}
+  section.card{
+    background:var(--card); border:1px solid var(--card-line); border-radius:12px;
+    padding:20px 18px; margin-bottom:18px;
+  }
+  h2{font-family:'Fraunces', Georgia, serif; font-weight:600; font-size:21px; line-height:1.25; margin:0 0 4px;}
+  h3{font-size:15.5px; font-weight:600; margin:22px 0 8px;}
+  .sub{color:var(--muted); font-size:14px; margin:0 0 14px;}
+  .notice{
+    border-left:3px solid var(--highlight-line); background:#f4f7fb; border-radius:0 8px 8px 0;
+    padding:10px 12px; font-size:14px; color:#3f4652; margin:0 0 14px;
+  }
+  .consent-text{font-size:15px; overflow-wrap:anywhere; margin:12px 0 4px;}
+  .consent-text h1, .consent-text h2, .consent-text h3, .consent-text h4{font-family:inherit; font-size:16px; font-weight:600; margin:18px 0 6px;}
+  .consent-text p{margin:0 0 10px;}
+  .consent-text{--base:15px;}
+  .consent-text [data-size="s"]{font-size:calc(var(--base) * .82);}
+  .consent-text [data-size="n"]{font-size:var(--base);}
+  .consent-text [data-size="l"]{font-size:calc(var(--base) * 1.18);}
+  .consent-text [data-size="xl"]{font-size:calc(var(--base) * 1.45);}
+  .consent-text ul, .consent-text ol{margin:0 0 10px; padding-left:22px;}
+  .consent-text li{margin-bottom:4px;}
+  .consent-text table{border-collapse:collapse; width:100%; margin-bottom:10px;}
+  .consent-text td, .consent-text th{border:1px solid var(--card-line); padding:6px 8px; text-align:left; vertical-align:top;}
+  .sign-title{font-size:17px; font-weight:600; margin:22px 0 2px; padding-top:16px; border-top:2px solid var(--card-line);}
+  .check-row{display:flex; gap:10px; align-items:flex-start; padding:10px 0; border-top:1px solid var(--card-line); cursor:pointer;}
+  .check-row input{width:22px; height:22px; flex-shrink:0; margin-top:1px; accent-color:var(--green);}
+  .check-row span{font-size:15px;}
+
+  .signer{border:1px solid var(--card-line); border-radius:10px; padding:14px; margin-top:14px; background:var(--paper);}
+  .signer.locked{opacity:.5;}
+  .signer-head{display:flex; justify-content:space-between; align-items:baseline; gap:8px; margin-bottom:10px;}
+  .signer-head strong{font-size:15px;}
+  .signer-state{font-size:13px; color:var(--muted);}
+  .signer.complete .signer-state{color:var(--green); font-weight:600;}
+  label.field{display:block; font-size:13px; font-weight:600; color:var(--muted); margin:10px 0 5px;}
+  input[type="text"], .date-input{
+    width:100%; font:inherit; font-size:16px; color:var(--ink);
+    padding:11px 12px; border:1px solid var(--card-line); border-radius:8px; background:#fff;
+  }
+  input[type="text"]:focus-visible, .date-input:focus-visible, button:focus-visible, .opt:focus-within{outline:2px solid #6f8fc0; outline-offset:2px;}
+  .sig-modes{display:flex; gap:6px; margin:12px 0 2px;}
+  .sig-mode{flex:1; min-height:40px; border:1px solid var(--card-line); border-radius:8px; background:#fff; color:var(--muted); font:inherit; font-size:14.5px; font-weight:500; cursor:pointer;}
+  .sig-mode.active{background:var(--highlight); border-color:var(--highlight-line); color:var(--ink); font-weight:600;}
+  .sig-mode:disabled{cursor:default;}
+  .pad-wrap.typed canvas{cursor:default;}
+  .signer input[id^="typed_"]{margin-bottom:8px;}
+  .pad-wrap{position:relative; border:1px dashed #b9bcc8; border-radius:8px; background:#fff; touch-action:none;}
+  .pad-wrap canvas{display:block; width:100%; height:170px; border-radius:8px; touch-action:none; cursor:crosshair;}
+  .pad-hint{position:absolute; left:0; right:0; top:50%; transform:translateY(-50%); text-align:center; color:#a9acb6; font-size:14px; pointer-events:none;}
+  .pad-actions{display:flex; justify-content:space-between; align-items:center; margin-top:6px; font-size:13px; color:var(--muted);}
+  .link-btn{background:none; border:none; color:#3f5f94; font:inherit; font-size:14px; text-decoration:underline; cursor:pointer; padding:6px 0;}
+
+  .q{padding:16px 0; border-top:1px solid var(--card-line);}
+  .q:first-of-type{border-top:none;}
+  .q.missing .q-text{color:var(--red);}
+  .q-text{font-weight:500; margin:0 0 10px;}
+  .q-num{color:var(--muted); font-weight:400; margin-right:4px;}
+  .opts{display:grid; grid-template-columns:1fr 1fr; gap:8px;}
+  .opt{
+    display:flex; align-items:center; gap:8px; min-height:46px;
+    border:1px solid var(--card-line); border-radius:8px; padding:8px 10px; font-size:14.5px; cursor:pointer; background:#fff;
+  }
+  .opt input{width:18px; height:18px; flex-shrink:0; accent-color:var(--green);}
+  .opt:has(input:checked){background:var(--green-bg); border-color:#a9d2c3;}
+  @media (min-width:600px){ .opts{grid-template-columns:repeat(4, 1fr);} }
+
+  .submit-btn{
+    width:100%; min-height:52px; border:none; border-radius:10px; background:var(--green); color:#fff;
+    font:inherit; font-size:17px; font-weight:600; cursor:pointer;
+  }
+  .submit-btn:disabled{opacity:.6; cursor:default;}
+  .error-box{background:var(--red-bg); color:#8a3644; border-radius:8px; padding:10px 12px; font-size:14.5px; margin-bottom:12px;}
+  .support{background:#fdf0dc; border:1px solid #e6bf86; border-radius:10px; padding:16px; margin-top:16px;}
+  .support h3{margin:0 0 6px; font-size:16.5px;}
+  .support p{margin:0 0 8px; font-size:15px;}
+  .support a{color:#7a4a12; font-weight:600;}
+  .center{text-align:center; padding:36px 18px;}
+  .center h2{font-size:24px; margin-bottom:8px;}
+  footer{max-width:680px; margin:0 auto; padding:0 16px 40px; color:var(--muted); font-size:12.5px;}
+  [hidden]{display:none !important;}
+  @media (prefers-reduced-motion:no-preference){ html{scroll-behavior:smooth;} }
+</style>
+</head>
+<body>
+<div class="top"><div class="top-inner">
+  <h1 id="pageTitle">Client forms</h1>
+  <p id="pageSub">İki Therapy</p>
+</div></div>
+<main id="app"><section class="card center"><p class="sub">Loading your forms…</p></section></main>
+<footer id="foot" hidden>Your answers are sent directly to your therapist's secure record. This link works once and cannot be used to view your answers afterwards.</footer>
+
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";
+  import { getFirestore, doc, getDoc, writeBatch, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore-lite.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyBgK5VzCmfQUqhftug3D5ULZEfMvdkjdNA",
+    authDomain: "danisantakip-f8226.firebaseapp.com",
+    projectId: "danisantakip-f8226",
+    storageBucket: "danisantakip-f8226.firebasestorage.app",
+    messagingSenderId: "171012588947",
+    appId: "1:171012588947:web:832fa17456223a1501d466"
+  };
+  const db = getFirestore(initializeApp(firebaseConfig));
+
+  /* ---------- Scales (English). PHQ-9 and GAD-7 may be reproduced without permission. ---------- */
+  const FREQ = ['Not at all', 'Several days', 'More than half the days', 'Nearly every day'];
+  const SCALES = {
+    phq9: {
+      title: 'PHQ-9',
+      stem: 'Over the last 2 weeks, how often have you been bothered by any of the following problems?',
+      items: [
+        'Little interest or pleasure in doing things',
+        'Feeling down, depressed, or hopeless',
+        'Trouble falling or staying asleep, or sleeping too much',
+        'Feeling tired or having little energy',
+        'Poor appetite or overeating',
+        'Feeling bad about yourself — or that you are a failure or have let yourself or your family down',
+        'Trouble concentrating on things, such as reading the newspaper or watching television',
+        'Moving or speaking so slowly that other people could have noticed? Or the opposite — being so fidgety or restless that you have been moving around a lot more than usual',
+        'Thoughts that you would be better off dead or of hurting yourself in some way'
+      ]
+    },
+    gad7: {
+      title: 'GAD-7',
+      stem: 'Over the last 2 weeks, how often have you been bothered by the following problems?',
+      items: [
+        'Feeling nervous, anxious, or on edge',
+        'Not being able to stop or control worrying',
+        'Worrying too much about different things',
+        'Trouble relaxing',
+        'Being so restless that it is hard to sit still',
+        'Becoming easily annoyed or irritable',
+        'Feeling afraid as if something awful might happen'
+      ]
+    }
+  };
+  const DIFFICULTY_Q = 'If you checked off any problems, how difficult have these problems made it for you to do your work, take care of things at home, or get along with other people?';
+  const DIFFICULTY = ['Not difficult at all', 'Somewhat difficult', 'Very difficult', 'Extremely difficult'];
+
+  const app = document.getElementById('app');
+  const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  const params = new URLSearchParams(location.hash.replace(/^#/, ''));
+  const token = params.get('t');
+  // The first letter of the code says whose record it is; older links carried it as a separate "p" value.
+  const OWNER_CODES = { a: 'kubilay', b: 'duygu' };
+  const personId = (token && token[1] === '.' && OWNER_CODES[token[0]]) || params.get('p');
+
+  function message(title, text){
+    app.innerHTML = `<section class="card center"><h2>${esc(title)}</h2><p class="sub">${esc(text)}</p></section>`;
+  }
+
+  // The consent text comes from the therapist's settings; only plain formatting tags are kept.
+  const ALLOWED_TAGS = new Set(['P','H1','H2','H3','H4','STRONG','B','EM','I','U','UL','OL','LI','BR','TABLE','THEAD','TBODY','TR','TD','TH']);
+  function sanitizeConsentHtml(html){
+    const src = new DOMParser().parseFromString('<div>' + String(html || '') + '</div>', 'text/html').body.firstChild;
+    const walk = (node, out) => {
+      node.childNodes.forEach(ch => {
+        if(ch.nodeType === 3){ out.appendChild(document.createTextNode(ch.nodeValue)); return; }
+        if(ch.nodeType !== 1) return;
+        const tag = ch.tagName;
+        if(['SCRIPT','STYLE','IFRAME','OBJECT','IMG','SVG','LINK','META'].includes(tag)) return;
+        if(tag === 'SPAN' || tag === 'FONT'){
+          let size = ch.getAttribute('data-size');
+          if(tag === 'FONT'){ const n = parseInt(ch.getAttribute('size'), 10); size = n <= 2 ? 's' : n === 3 ? 'n' : n === 4 ? 'l' : n >= 5 ? 'xl' : null; }
+          if(['s','n','l','xl'].includes(size)){ const el = document.createElement('span'); el.setAttribute('data-size', size); walk(ch, el); out.appendChild(el); }
+          else walk(ch, out);
+          return;
+        }
+        if(ALLOWED_TAGS.has(tag)){ const el = document.createElement(tag); walk(ch, el); out.appendChild(el); }
+        else if(tag === 'DIV'){ const el = document.createElement('p'); walk(ch, el); out.appendChild(el); }
+        else walk(ch, out);
+      });
+    };
+    const out = document.createElement('div');
+    walk(src, out);
+    return out.innerHTML;
+  }
+
+  let req = null;
+  const pads = [];
+
+  async function start(){
+    if(!personId || !token || !/^[a-z]+$/.test(personId) || !/^([a-z]\.)?[A-Za-z0-9_-]{20,}$/.test(token)){
+      message('This link is not valid', 'Please open the link exactly as it was sent to you, or ask your therapist for a new one.');
+      return;
+    }
+    try{
+      // "done" marker: written together with the answers, so a used link shows a clear message
+      // instead of opening the form again.
+      const [snap, doneSnap] = await Promise.all([
+        getDoc(doc(db, 'users', personId, 'formRequests', token)),
+        getDoc(doc(db, 'users', personId, 'formRequests', token, 'status', 'done'))
+      ]);
+      if(doneSnap.exists()){
+        message('These forms have already been submitted', 'Thank you. There is nothing more to do. If you need to change something, please contact your therapist.');
+        return;
+      }
+      if(!snap.exists()){
+        message('This link is no longer available', 'It may have been cancelled. Please ask your therapist for a new link.');
+        return;
+      }
+      req = snap.data();
+    }catch(e){
+      message('The forms could not be loaded', 'Please check your internet connection and try again.');
+      return;
+    }
+    const expires = req.expiresAt && req.expiresAt.toDate ? req.expiresAt.toDate() : null;
+    if(expires && expires.getTime() < Date.now()){
+      message('This link has expired', 'Please ask your therapist to send you a new link.');
+      return;
+    }
+    document.getElementById('pageSub').textContent = [req.therapist && req.therapist.name, req.practice || 'İki Therapy'].filter(Boolean).join(' · ');
+    if(req.respondents){ render(); return; }      // older links carry the forms directly
+    if(req.needsDob){ showDobGate(); return; }
+    if(await loadContent('open')) render();
+    else message('The forms could not be loaded', 'Please ask your therapist for a new link.');
+  }
+
+  // The forms themselves live in a separate record that can only be opened with the right key
+  // (the date of birth, when the therapist asked for that check).
+  let contentKey = null;
+  async function loadContent(key){
+    const snap = await getDoc(doc(db, 'users', personId, 'formRequests', token, 'content', key));
+    if(!snap.exists()) return false;
+    req = { ...req, ...snap.data() };
+    contentKey = key;
+    return true;
+  }
+
+  function showDobGate(){
+    let tries = 0;
+    const who = req.dobOf === 'client' ? "the client's date of birth (the person receiving therapy)" : 'your date of birth';
+    app.innerHTML = `
+      <section class="card">
+        <h2>Confirm it's you</h2>
+        <p class="sub">To protect your privacy, please enter ${who} to open your forms.</p>
+        <label class="field" for="dobInput">Date of birth</label>
+        <input type="date" id="dobInput" class="date-input" max="${new Date().toISOString().slice(0,10)}">
+        <div id="errorBox" class="error-box" style="margin-top:12px;" hidden></div>
+        <button type="button" class="submit-btn" id="dobBtn" style="margin-top:14px;">Continue</button>
+      </section>`;
+    const btn = document.getElementById('dobBtn'), box = document.getElementById('errorBox');
+    btn.addEventListener('click', async ()=>{
+      const v = document.getElementById('dobInput').value;
+      box.hidden = true;
+      if(!/^\d{4}-\d{2}-\d{2}$/.test(v)){ box.textContent = 'Please choose a full date.'; box.hidden = false; return; }
+      btn.disabled = true; btn.textContent = 'Checking…';
+      let ok = false, failed = false;
+      try{ ok = await loadContent(v); }catch(e){ failed = true; }
+      if(ok){ render(); return; }
+      btn.textContent = 'Continue';
+      if(failed){ box.textContent = 'Could not check right now. Please check your internet connection and try again.'; box.hidden = false; btn.disabled = false; return; }
+      tries++;
+      if(tries >= 5){
+        box.textContent = 'That date does not match our records. Please contact your therapist.';
+        box.hidden = false;
+        return; // button stays disabled
+      }
+      box.textContent = 'That date does not match our records. Please try again.';
+      box.hidden = false; btn.disabled = false;
+    });
+  }
+
+  function scaleHtml(scaleId, rIdx, respondentName, showName){
+    const sc = SCALES[scaleId];
+    if(!sc) return '';
+    const key = `${scaleId}_${rIdx}`;
+    const qHtml = (text, name, opts, num) => `
+      <div class="q" data-q="${name}">
+        <p class="q-text">${num ? `<span class="q-num">${num}.</span>` : ''}${esc(text)}</p>
+        <div class="opts">
+          ${opts.map((o,v)=>`<label class="opt"><input type="radio" name="${name}" value="${v}"><span>${esc(o)}</span></label>`).join('')}
+        </div>
+      </div>`;
+    return `
+    <section class="card" data-scale="${scaleId}" data-respondent="${rIdx}">
+      <h2>${esc(sc.title)}${showName ? ` — ${esc(respondentName)}` : ''}</h2>
+      <p class="sub">${esc(sc.stem)}</p>
+      ${scaleId === 'phq9' ? `<p class="notice">Your answers are not monitored in real time. If you are in crisis or thinking about harming yourself, call or text 9-8-8 (Suicide Crisis Helpline, Canada) or call 911.</p>` : ''}
+      ${sc.items.map((t,i)=>qHtml(t, `${key}_${i}`, FREQ, i+1)).join('')}
+      ${scaleId === 'phq9' ? qHtml(DIFFICULTY_Q, `${key}_diff`, DIFFICULTY, '') : ''}
+    </section>`;
+  }
+
+  function signerHtml(s, i){
+    const isGuardian = s.role === 'guardian';
+    return `
+    <div class="signer ${i > 0 ? 'locked' : ''}" data-signer="${i}">
+      <div class="signer-head">
+        <strong>${isGuardian ? 'Parent / guardian signature' : (req.signers.length > 1 ? `Signature ${i+1} of ${req.signers.length}${s.name ? ' — ' + esc(s.name) : ''}` : 'Your signature')}</strong>
+        <span class="signer-state">${i > 0 ? 'Waiting for the previous signature' : ''}</span>
+      </div>
+      <label class="field" for="name_${i}">${isGuardian ? 'Parent / guardian full name' : 'Full name'}</label>
+      <input type="text" id="name_${i}" autocomplete="name" ${i > 0 ? 'disabled' : ''}>
+      ${isGuardian ? `<label class="field" for="rel_${i}">Relationship to the client</label><input type="text" id="rel_${i}" placeholder="e.g. mother, father, legal guardian">
+      <label class="field" for="cname_${i}">Client's full name (the young person receiving therapy)</label><input type="text" id="cname_${i}">` : ''}
+      <div class="sig-modes">
+        <button type="button" class="sig-mode active" data-sigmode="draw" data-i="${i}">Draw signature</button>
+        <button type="button" class="sig-mode" data-sigmode="type" data-i="${i}">Type signature</button>
+      </div>
+      <label class="field" id="padlabel_${i}" for="typed_${i}">Sign in the box with your finger or mouse</label>
+      <input type="text" id="typed_${i}" autocomplete="off" hidden>
+      <div class="pad-wrap"><canvas id="pad_${i}"></canvas><div class="pad-hint">Sign here</div></div>
+      <div class="pad-actions"><span>Date: ${new Date().toLocaleDateString('en-CA', { year:'numeric', month:'long', day:'numeric' })}</span><button type="button" class="link-btn" data-clear="${i}">Clear</button></div>
+    </div>`;
+  }
+
+  function render(){
+    document.getElementById('foot').hidden = false;
+    const c = req.consent;
+    const respondents = req.respondents || [];
+    const scales = req.scales || [];
+    let html = '';
+    if(c){
+      html += `
+      <section class="card" id="consentCard">
+        <h2>${esc(c.title || 'Consent form')}</h2>
+        <div class="consent-text">${sanitizeConsentHtml(c.html)}</div>
+        <div class="sign-title">Agreement and signature</div>
+        <div id="checks">
+          ${(c.checks||[]).map((t,i)=>`<label class="check-row"><input type="checkbox" data-check="${i}"><span>${esc(t)}</span></label>`).join('')}
+        </div>
+        ${req.signers.length > 1 ? `<p class="sub" style="margin-top:12px;">Each person signs in turn. The second signature opens once the first is complete.</p>` : ''}
+        ${(req.twoSigners || req.coSignerName) ? `<p class="sub" style="margin-top:12px;">This form is signed by two people. Your partner signs separately, using their own link.</p>` : ''}
+        ${req.signers.map(signerHtml).join('')}
+      </section>`;
+    }
+    respondents.forEach((r, rIdx)=>{
+      scales.forEach(id => { html += scaleHtml(id, rIdx, r.name, respondents.length > 1); });
+    });
+    html += `<div id="errorBox" class="error-box" hidden></div>
+      <button type="button" class="submit-btn" id="submitBtn">${c ? 'Sign and submit' : 'Submit'}</button>`;
+    app.innerHTML = html;
+
+    if(c){
+      req.signers.forEach((s,i)=>{
+        pads[i] = makePad(document.getElementById(`pad_${i}`), ()=>updateSigners());
+        document.getElementById(`name_${i}`).addEventListener('input', updateSigners);
+        ['rel_', 'cname_'].forEach(pre => { const el = document.getElementById(pre + i); if(el) el.addEventListener('input', updateSigners); });
+      });
+      app.querySelectorAll('[data-clear]').forEach(b=> b.addEventListener('click', ()=>{
+        const i = Number(b.dataset.clear);
+        pads[i].clear();
+        document.getElementById(`typed_${i}`).value = '';
+        updateSigners();
+      }));
+      // Draw / Type: a typed name is rendered in a handwriting-style font and stored like a drawn signature.
+      app.querySelectorAll('[data-sigmode]').forEach(b=> b.addEventListener('click', ()=>{
+        const i = Number(b.dataset.i), mode = b.dataset.sigmode;
+        const typed = document.getElementById(`typed_${i}`);
+        app.querySelectorAll(`[data-sigmode][data-i="${i}"]`).forEach(x => x.classList.toggle('active', x === b));
+        pads[i].setMode(mode);
+        typed.hidden = mode !== 'type';
+        document.getElementById(`padlabel_${i}`).textContent = mode === 'type' ? 'Type your name; it appears below as your signature' : 'Sign in the box with your finger or mouse';
+        if(mode === 'type'){
+          if(!typed.value) typed.value = document.getElementById(`name_${i}`).value.trim();
+          pads[i].setTyped(typed.value);
+          typed.focus();
+        }
+        updateSigners();
+      }));
+      req.signers.forEach((s,i)=> document.getElementById(`typed_${i}`).addEventListener('input', ev=>{ pads[i].setTyped(ev.target.value); updateSigners(); }));
+      updateSigners();
+    }
+    app.querySelectorAll('.q input').forEach(inp => inp.addEventListener('change', ()=> inp.closest('.q').classList.remove('missing')));
+    document.getElementById('submitBtn').addEventListener('click', submit);
+  }
+
+  function signerComplete(i){
+    const name = document.getElementById(`name_${i}`).value.trim();
+    const rel = document.getElementById(`rel_${i}`);
+    const cname = document.getElementById(`cname_${i}`);
+    return name.length >= 3 && (!rel || rel.value.trim().length >= 2) && (!cname || cname.value.trim().length >= 3) && pads[i].hasInk();
+  }
+
+  // Sequential signing: signer N+1 unlocks only when signer N has a name and a signature.
+  function updateSigners(){
+    let prevDone = true;
+    req.signers.forEach((s,i)=>{
+      const el = app.querySelector(`[data-signer="${i}"]`);
+      const done = prevDone && signerComplete(i);
+      el.classList.toggle('locked', !prevDone);
+      el.classList.toggle('complete', done);
+      document.getElementById(`name_${i}`).disabled = !prevDone;
+      document.getElementById(`typed_${i}`).disabled = !prevDone;
+      el.querySelectorAll('.sig-mode').forEach(x => { x.disabled = !prevDone; });
+      pads[i].setEnabled(prevDone);
+      el.querySelector('.signer-state').textContent = !prevDone ? 'Waiting for the previous signature' : (done ? '✓ Signed' : '');
+      prevDone = done;
+    });
+  }
+
+  function makePad(canvas, onChange){
+    const ctx = canvas.getContext('2d');
+    let drawing = false, ink = false, enabled = true, last = null, mode = 'draw', typedText = '';
+    const hint = canvas.parentElement.querySelector('.pad-hint');
+    function renderTyped(){
+      const w = canvas.clientWidth, h = canvas.clientHeight;
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      const text = typedText.trim();
+      ink = text.length >= 2;
+      hint.hidden = !!text;
+      if(!text) return;
+      let size = 56;
+      const font = px => `600 ${px}px "Dancing Script", "Snell Roundhand", "Segoe Script", cursive`;
+      ctx.font = font(size);
+      while(size > 18 && ctx.measureText(text).width > w - 36){ size -= 2; ctx.font = font(size); }
+      ctx.fillStyle = '#1d2330'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+      ctx.fillText(text, w / 2, h / 2 + 2);
+    }
+    function resize(){
+      const ratio = Math.min(window.devicePixelRatio || 1, 2);
+      const w = canvas.clientWidth, h = canvas.clientHeight;
+      if(!w || canvas.width === Math.round(w * ratio)) return;
+      const old = ink ? canvas.toDataURL() : null;
+      canvas.width = Math.round(w * ratio); canvas.height = Math.round(h * ratio);
+      ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
+      ctx.lineWidth = 2.2; ctx.lineCap = 'round'; ctx.lineJoin = 'round'; ctx.strokeStyle = '#1d2330';
+      if(mode === 'type') renderTyped();
+      else if(old){ const img = new Image(); img.onload = ()=> ctx.drawImage(img, 0, 0, w, h); img.src = old; }
+    }
+    resize();
+    window.addEventListener('resize', resize);
+    const pos = ev => { const r = canvas.getBoundingClientRect(); return { x: ev.clientX - r.left, y: ev.clientY - r.top }; };
+    canvas.addEventListener('pointerdown', ev=>{
+      if(!enabled || mode !== 'draw') return;
+      ev.preventDefault();
+      canvas.setPointerCapture(ev.pointerId);
+      drawing = true; last = pos(ev);
+      ctx.beginPath(); ctx.arc(last.x, last.y, 1.1, 0, Math.PI*2); ctx.fillStyle = '#1d2330'; ctx.fill();
+    });
+    canvas.addEventListener('pointermove', ev=>{
+      if(!drawing) return;
+      ev.preventDefault();
+      const p = pos(ev);
+      ctx.beginPath(); ctx.moveTo(last.x, last.y); ctx.lineTo(p.x, p.y); ctx.stroke();
+      last = p;
+      if(!ink){ ink = true; canvas.parentElement.querySelector('.pad-hint').hidden = true; }
+    });
+    const end = ()=>{ if(drawing){ drawing = false; onChange(); } };
+    canvas.addEventListener('pointerup', end);
+    canvas.addEventListener('pointercancel', end);
+    return {
+      hasInk: ()=> ink,
+      method: ()=> mode === 'type' ? 'typed' : 'drawn',
+      setEnabled: v => { enabled = v; },
+      setMode(m){
+        mode = m; typedText = ''; ink = false;
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        hint.hidden = false;
+        hint.textContent = m === 'type' ? 'Your typed signature appears here' : 'Sign here';
+        canvas.parentElement.classList.toggle('typed', m === 'type');
+      },
+      setTyped(text){
+        typedText = text || '';
+        renderTyped();
+        // The handwriting font may still be loading on first use: draw again once it is ready.
+        if(document.fonts && document.fonts.load) document.fonts.load('600 40px "Dancing Script"', typedText || 'a').then(()=>{ if(mode === 'type') renderTyped(); }).catch(()=>{});
+      },
+      clear(){ typedText = ''; ctx.clearRect(0, 0, canvas.width, canvas.height); ink = false; hint.hidden = false; },
+      // Exported at a fixed small size so the stored record stays light.
+      toDataUrl(){
+        const out = document.createElement('canvas');
+        out.width = 600; out.height = Math.round(600 * canvas.height / canvas.width);
+        const o = out.getContext('2d');
+        o.fillStyle = '#fff'; o.fillRect(0, 0, out.width, out.height);
+        o.drawImage(canvas, 0, 0, out.width, out.height);
+        return out.toDataURL('image/png');
+      }
+    };
+  }
+
+  function showError(text, el){
+    const box = document.getElementById('errorBox');
+    box.textContent = text; box.hidden = false;
+    (el || box).scrollIntoView({ block:'center' });
+  }
+
+  async function submit(){
+    const btn = document.getElementById('submitBtn');
+    document.getElementById('errorBox').hidden = true;
+    const payload = { v: 1, completedAtClient: new Date().toISOString(), timezone: Intl.DateTimeFormat().resolvedOptions().timeZone || '' };
+
+    if(req.consent){
+      const boxes = Array.from(app.querySelectorAll('[data-check]'));
+      const unchecked = boxes.find(b => !b.checked);
+      if(unchecked){ showError('Please tick every statement in the consent form to continue.', unchecked.closest('.check-row')); return; }
+      for(let i = 0; i < req.signers.length; i++){
+        if(!signerComplete(i)){
+          showError(req.signers.length > 1 ? `Signature ${i+1} is not complete: a full name and a signature are both needed.` : 'Please fill in every name field and sign in the box.', app.querySelector(`[data-signer="${i}"]`));
+          return;
+        }
+      }
+      payload.consent = {
+        type: req.consent.type, version: req.consent.version,
+        checks: boxes.map(b => b.checked),
+        signers: req.signers.map((s,i)=>({
+          role: s.role || 'client',
+          expectedName: s.name || '',
+          name: document.getElementById(`name_${i}`).value.trim(),
+          relationship: document.getElementById(`rel_${i}`) ? document.getElementById(`rel_${i}`).value.trim() : '',
+          clientName: document.getElementById(`cname_${i}`) ? document.getElementById(`cname_${i}`).value.trim() : '',
+          signature: pads[i].toDataUrl(),
+          signatureMethod: pads[i].method(),
+          signedAt: new Date().toISOString()
+        }))
+      };
+    }
+
+    payload.scales = [];
+    let firstMissing = null;
+    let selfHarmFlag = false;
+    app.querySelectorAll('section[data-scale]').forEach(sec=>{
+      const id = sec.dataset.scale, rIdx = Number(sec.dataset.respondent);
+      const key = `${id}_${rIdx}`;
+      const read = name => { const c = sec.querySelector(`input[name="${name}"]:checked`); return c ? Number(c.value) : null; };
+      const answers = SCALES[id].items.map((_,i)=>{
+        const v = read(`${key}_${i}`);
+        if(v === null){ const q = sec.querySelector(`[data-q="${key}_${i}"]`); q.classList.add('missing'); if(!firstMissing) firstMissing = q; }
+        return v;
+      });
+      const entry = { id, respondent: rIdx, respondentName: (req.respondents[rIdx]||{}).name || '', answers };
+      if(id === 'phq9'){
+        entry.difficulty = read(`${key}_diff`); // optional on the original form
+        if(answers[8] > 0) selfHarmFlag = true;
+      }
+      payload.scales.push(entry);
+    });
+    if(firstMissing){ showError('Some questions are not answered yet. They are marked in red.', firstMissing); return; }
+
+    btn.disabled = true; btn.textContent = 'Sending…';
+    try{
+      // Answers and the "done" marker are saved together: either both are stored or neither.
+      const batch = writeBatch(db);
+      batch.set(doc(db, 'users', personId, 'formRequests', token, 'responses', 'main'), {
+        v: 1, submittedAt: serverTimestamp(), payload: JSON.stringify(payload), key: contentKey || 'open'
+      });
+      batch.set(doc(db, 'users', personId, 'formRequests', token, 'status', 'done'), { done: true });
+      await batch.commit();
+    }catch(e){
+      btn.disabled = false; btn.textContent = req.consent ? 'Sign and submit' : 'Submit';
+      const denied = e && (e.code === 'permission-denied' || /permission/i.test(e.message || ''));
+      showError(denied
+        ? 'These forms could not be submitted. They may already have been submitted, or the link has expired. Please contact your therapist.'
+        : 'These forms could not be sent. Please check your internet connection and try again.');
+      return;
+    }
+    document.getElementById('pageTitle').textContent = 'Thank you';
+    app.innerHTML = `
+      <section class="card center">
+        <h2>Your forms were submitted</h2>
+        <p class="sub">${esc((req.therapist && req.therapist.name) || 'Your therapist')} has received them. You can close this page.</p>
+      </section>
+      ${selfHarmFlag ? `
+      <section class="support" role="alert">
+        <h3>Support is available right now</h3>
+        <p>Your therapist will see your answers, but not immediately. If you are thinking about harming yourself or feel unsafe:</p>
+        <p><a href="tel:988">Call or text 9-8-8</a> — Suicide Crisis Helpline, available across Canada at any hour.</p>
+        <p><a href="tel:911">Call 911</a> or go to the nearest emergency department if you are in immediate danger.</p>
+      </section>` : ''}`;
+    window.scrollTo(0, 0);
+  }
+
+  start();
+</script>
+</body>
+</html>
