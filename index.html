@@ -178,6 +178,84 @@
   const DIFFICULTY_Q = 'If you checked off any problems, how difficult have these problems made it for you to do your work, take care of things at home, or get along with other people?';
   const DIFFICULTY = ['Not difficult at all', 'Somewhat difficult', 'Very difficult', 'Extremely difficult'];
 
+  /* ---------- Page texts in English and Turkish ---------- */
+  const I18N = {
+    en: {
+      pageTitle: 'Client forms', loading: 'Loading your forms…',
+      foot: "Your answers are sent directly to your therapist's secure record. This link works once and cannot be used to view your answers afterwards.",
+      badLinkT: 'This link is not valid', badLink: 'Please open the link exactly as it was sent to you, or ask your therapist for a new one.',
+      doneT: 'These forms have already been submitted', done: 'Thank you. There is nothing more to do. If you need to change something, please contact your therapist.',
+      goneT: 'This link is no longer available', gone: 'It may have been cancelled. Please ask your therapist for a new link.',
+      loadFailT: 'The forms could not be loaded', loadFail: 'Please check your internet connection and try again.', loadFail2: 'Please ask your therapist for a new link.',
+      expiredT: 'This link has expired', expired: 'Please ask your therapist to send you a new link.',
+      dobTitle: "Confirm it's you", dobWhoClient: "the client's date of birth (the person receiving therapy)", dobWhoSelf: 'your date of birth',
+      dobText: who => `To protect your privacy, please enter ${who} to open your forms.`, dobLabel: 'Date of birth', cont: 'Continue', checking: 'Checking…',
+      dobFull: 'Please choose a full date.', dobNet: 'Could not check right now. Please check your internet connection and try again.',
+      dobNoMatchStop: 'That date does not match our records. Please contact your therapist.', dobNoMatch: 'That date does not match our records. Please try again.',
+      crisis: 'Your answers are not monitored in real time. If you are in crisis or thinking about harming yourself, call or text 9-8-8 (Suicide Crisis Helpline, Canada) or call 911.',
+      intake: 'Intake form', required: 'Fields marked <span class="req">*</span> are required.',
+      guardianSig: 'Parent / guardian signature', sigNofM: (i, n) => `Signature ${i} of ${n}`, yourSig: 'Your signature', waiting: 'Waiting for the previous signature', signed: '✓ Signed',
+      guardianName: 'Parent / guardian full name', fullName: 'Full name', relLabel: 'Relationship to the client', relPh: 'e.g. mother, father, legal guardian',
+      clientNameLabel: "Client's full name (the young person receiving therapy)", draw: 'Draw signature', type: 'Type signature',
+      drawHint: 'Sign in the box with your finger or mouse', typeHint: 'Type your name; it appears below as your signature',
+      padDraw: 'Sign here', padType: 'Your typed signature appears here', date: 'Date', clear: 'Clear', locale: 'en-CA',
+      consent: 'Consent form', agreement: 'Agreement and signature',
+      seqNote: 'Each person signs in turn. The second signature opens once the first is complete.',
+      partnerNote: 'This form is signed by two people. Your partner signs separately, using their own link.',
+      signSubmit: 'Sign and submit', submit: 'Submit', sending: 'Sending…',
+      errIntake: 'Please fill in the required fields of the intake form (marked with *).', errChecks: 'Please tick every statement in the consent form to continue.',
+      errSigN: i => `Signature ${i} is not complete: a full name and a signature are both needed.`, errSig: 'Please fill in every name field and sign in the box.',
+      errMissing: 'Some questions are not answered yet. They are marked in red.',
+      errDenied: 'These forms could not be submitted. They may already have been submitted, or the link has expired. Please contact your therapist.',
+      errNet: 'These forms could not be sent. Please check your internet connection and try again.',
+      thanks: 'Thank you', submittedT: 'Your forms were submitted', yourTherapist: 'Your therapist', received: who => `${who} has received them. You can close this page.`,
+      supportT: 'Support is available right now', support1: 'Your therapist will see your answers, but not immediately. If you are thinking about harming yourself or feel unsafe:',
+      support988: 'Call or text 9-8-8', support988b: ' — Suicide Crisis Helpline, available across Canada at any hour.',
+      support911: 'Call 911', support911b: ' or go to the nearest emergency department if you are in immediate danger.'
+    },
+    tr: {
+      pageTitle: 'Danışan formları', loading: 'Formlarınız yükleniyor…',
+      foot: 'Yanıtlarınız doğrudan terapistinizin güvenli kaydına gönderilir. Bu bağlantı yalnızca bir kez kullanılabilir; yanıtlarınızı daha sonra görüntülemek için kullanılamaz.',
+      badLinkT: 'Bu bağlantı geçerli değil', badLink: 'Lütfen bağlantıyı size gönderildiği şekliyle açın ya da terapistinizden yeni bir bağlantı isteyin.',
+      doneT: 'Bu formlar zaten gönderildi', done: 'Teşekkürler, yapmanız gereken başka bir şey yok. Bir şeyi değiştirmeniz gerekiyorsa lütfen terapistinizle iletişime geçin.',
+      goneT: 'Bu bağlantı artık kullanılamıyor', gone: 'İptal edilmiş olabilir. Lütfen terapistinizden yeni bir bağlantı isteyin.',
+      loadFailT: 'Formlar yüklenemedi', loadFail: 'Lütfen internet bağlantınızı kontrol edip tekrar deneyin.', loadFail2: 'Lütfen terapistinizden yeni bir bağlantı isteyin.',
+      expiredT: 'Bu bağlantının süresi doldu', expired: 'Lütfen terapistinizden size yeni bir bağlantı göndermesini isteyin.',
+      dobTitle: 'Kimliğinizi doğrulayın', dobWhoClient: 'danışanın (terapi alan kişinin) doğum tarihini', dobWhoSelf: 'doğum tarihinizi',
+      dobText: who => `Gizliliğinizi korumak için formlarınızı açmadan önce lütfen ${who} girin.`, dobLabel: 'Doğum tarihi', cont: 'Devam', checking: 'Kontrol ediliyor…',
+      dobFull: 'Lütfen tarihi eksiksiz seçin.', dobNet: 'Şu anda kontrol edilemedi. Lütfen internet bağlantınızı kontrol edip tekrar deneyin.',
+      dobNoMatchStop: 'Bu tarih kayıtlarımızla eşleşmiyor. Lütfen terapistinizle iletişime geçin.', dobNoMatch: 'Bu tarih kayıtlarımızla eşleşmiyor. Lütfen tekrar deneyin.',
+      crisis: "Yanıtlarınız anlık olarak takip edilmemektedir. Kriz içindeyseniz ya da kendinize zarar vermeyi düşünüyorsanız 9-8-8'i arayın ya da mesaj gönderin (Kanada İntihar Kriz Hattı) veya 911'i arayın.",
+      intake: 'Ön bilgi formu', required: '<span class="req">*</span> ile işaretli alanların doldurulması zorunludur.',
+      guardianSig: 'Veli / vasi imzası', sigNofM: (i, n) => `İmza ${i} / ${n}`, yourSig: 'İmzanız', waiting: 'Önceki imza bekleniyor', signed: '✓ İmzalandı',
+      guardianName: 'Velinin / vasinin adı soyadı', fullName: 'Ad soyad', relLabel: 'Danışana yakınlık derecesi', relPh: 'ör. annesi, babası, yasal vasisi',
+      clientNameLabel: 'Danışanın adı soyadı (terapi alan genç)', draw: 'İmzayı çiz', type: 'İmzayı yaz',
+      drawHint: 'Kutunun içine parmağınızla ya da farenizle imzanızı atın', typeHint: 'Adınızı yazın; aşağıda imzanız olarak görünür',
+      padDraw: 'Buraya imzalayın', padType: 'Yazdığınız imza burada görünür', date: 'Tarih', clear: 'Temizle', locale: 'tr-TR',
+      consent: 'Onam formu', agreement: 'Onay ve imza',
+      seqNote: 'Herkes sırayla imzalar. İkinci imza alanı, ilk imza tamamlandığında açılır.',
+      partnerNote: 'Bu form iki kişi tarafından imzalanır. Eşiniz kendi bağlantısından ayrıca imzalar.',
+      signSubmit: 'İmzala ve gönder', submit: 'Gönder', sending: 'Gönderiliyor…',
+      errIntake: 'Lütfen ön bilgi formundaki zorunlu alanları (* ile işaretli) doldurun.', errChecks: 'Devam etmek için lütfen onam formundaki tüm ifadeleri işaretleyin.',
+      errSigN: i => `${i}. imza tamamlanmadı: hem ad soyad hem imza gereklidir.`, errSig: 'Lütfen tüm ad alanlarını doldurun ve kutunun içine imzanızı atın.',
+      errMissing: 'Bazı sorular henüz yanıtlanmadı. Kırmızıyla işaretlendiler.',
+      errDenied: 'Formlar gönderilemedi. Daha önce gönderilmiş ya da bağlantının süresi dolmuş olabilir. Lütfen terapistinizle iletişime geçin.',
+      errNet: 'Formlar gönderilemedi. Lütfen internet bağlantınızı kontrol edip tekrar deneyin.',
+      thanks: 'Teşekkürler', submittedT: 'Formlarınız gönderildi', yourTherapist: 'Terapistiniz', received: who => `${who} formlarınızı aldı. Bu sayfayı kapatabilirsiniz.`,
+      supportT: 'Şu anda destek alabilirsiniz', support1: 'Terapistiniz yanıtlarınızı görecek, ancak hemen değil. Kendinize zarar vermeyi düşünüyorsanız ya da kendinizi güvende hissetmiyorsanız:',
+      support988: "9-8-8'i arayın ya da mesaj gönderin", support988b: ' — Kanada genelinde günün her saati ulaşılabilen İntihar Kriz Hattı.',
+      support911: "911'i arayın", support911b: ' ya da hemen tehlikedeyseniz en yakın acil servise gidin.'
+    }
+  };
+  let LANG = 'en', L = I18N.en;
+  function setLang(l){
+    LANG = l === 'tr' ? 'tr' : 'en'; L = I18N[LANG];
+    document.documentElement.lang = LANG;
+    document.title = L.pageTitle;
+    document.getElementById('pageTitle').textContent = L.pageTitle;
+    document.getElementById('foot').textContent = L.foot;
+  }
+
   const app = document.getElementById('app');
   const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
   const params = new URLSearchParams(location.hash.replace(/^#/, ''));
@@ -185,6 +263,8 @@
   // The first letter of the code says whose record it is; older links carried it as a separate "p" value.
   const OWNER_CODES = { a: 'kubilay', b: 'duygu' };
   const personId = (token && token[1] === '.' && OWNER_CODES[token[0]]) || params.get('p');
+  setLang(params.get('l'));
+  if(LANG !== 'en') app.innerHTML = `<section class="card center"><p class="sub">${L.loading}</p></section>`;
 
   function message(title, text){
     app.innerHTML = `<section class="card center"><h2>${esc(title)}</h2><p class="sub">${esc(text)}</p></section>`;
@@ -222,7 +302,7 @@
 
   async function start(){
     if(!personId || !token || !/^[a-z]+$/.test(personId) || !/^([a-z]\.)?[A-Za-z0-9_-]{20,}$/.test(token)){
-      message('This link is not valid', 'Please open the link exactly as it was sent to you, or ask your therapist for a new one.');
+      message(L.badLinkT, L.badLink);
       return;
     }
     try{
@@ -233,28 +313,29 @@
         getDoc(doc(db, 'users', personId, 'formRequests', token, 'status', 'done'))
       ]);
       if(doneSnap.exists()){
-        message('These forms have already been submitted', 'Thank you. There is nothing more to do. If you need to change something, please contact your therapist.');
+        message(L.doneT, L.done);
         return;
       }
       if(!snap.exists()){
-        message('This link is no longer available', 'It may have been cancelled. Please ask your therapist for a new link.');
+        message(L.goneT, L.gone);
         return;
       }
       req = snap.data();
+      if(req.lang && req.lang !== LANG) setLang(req.lang);
     }catch(e){
-      message('The forms could not be loaded', 'Please check your internet connection and try again.');
+      message(L.loadFailT, L.loadFail);
       return;
     }
     const expires = req.expiresAt && req.expiresAt.toDate ? req.expiresAt.toDate() : null;
     if(expires && expires.getTime() < Date.now()){
-      message('This link has expired', 'Please ask your therapist to send you a new link.');
+      message(L.expiredT, L.expired);
       return;
     }
     document.getElementById('pageSub').textContent = [req.therapist && req.therapist.name, req.practice || 'İki Therapy'].filter(Boolean).join(' · ');
     if(req.respondents){ render(); return; }      // older links carry the forms directly
     if(req.needsDob){ showDobGate(); return; }
     if(await loadContent('open')) render();
-    else message('The forms could not be loaded', 'Please ask your therapist for a new link.');
+    else message(L.loadFailT, L.loadFail2);
   }
 
   // The forms themselves live in a separate record that can only be opened with the right key
@@ -264,46 +345,54 @@
     const snap = await getDoc(doc(db, 'users', personId, 'formRequests', token, 'content', key));
     if(!snap.exists()) return false;
     req = { ...req, ...snap.data() };
+    if(req.lang && req.lang !== LANG) setLang(req.lang);
     contentKey = key;
     return true;
   }
 
   function showDobGate(){
     let tries = 0;
-    const who = req.dobOf === 'client' ? "the client's date of birth (the person receiving therapy)" : 'your date of birth';
+    const who = req.dobOf === 'client' ? L.dobWhoClient : L.dobWhoSelf;
     app.innerHTML = `
       <section class="card">
-        <h2>Confirm it's you</h2>
-        <p class="sub">To protect your privacy, please enter ${who} to open your forms.</p>
-        <label class="field" for="dobInput">Date of birth</label>
+        <h2>${esc(L.dobTitle)}</h2>
+        <p class="sub">${esc(L.dobText(who))}</p>
+        <label class="field" for="dobInput">${esc(L.dobLabel)}</label>
         <input type="date" id="dobInput" class="date-input" max="${new Date().toISOString().slice(0,10)}">
         <div id="errorBox" class="error-box" style="margin-top:12px;" hidden></div>
-        <button type="button" class="submit-btn" id="dobBtn" style="margin-top:14px;">Continue</button>
+        <button type="button" class="submit-btn" id="dobBtn" style="margin-top:14px;">${esc(L.cont)}</button>
       </section>`;
     const btn = document.getElementById('dobBtn'), box = document.getElementById('errorBox');
     btn.addEventListener('click', async ()=>{
       const v = document.getElementById('dobInput').value;
       box.hidden = true;
-      if(!/^\d{4}-\d{2}-\d{2}$/.test(v)){ box.textContent = 'Please choose a full date.'; box.hidden = false; return; }
-      btn.disabled = true; btn.textContent = 'Checking…';
+      if(!/^\d{4}-\d{2}-\d{2}$/.test(v)){ box.textContent = L.dobFull; box.hidden = false; return; }
+      btn.disabled = true; btn.textContent = L.checking;
       let ok = false, failed = false;
       try{ ok = await loadContent(v); }catch(e){ failed = true; }
       if(ok){ render(); return; }
-      btn.textContent = 'Continue';
-      if(failed){ box.textContent = 'Could not check right now. Please check your internet connection and try again.'; box.hidden = false; btn.disabled = false; return; }
+      btn.textContent = L.cont;
+      if(failed){ box.textContent = L.dobNet; box.hidden = false; btn.disabled = false; return; }
       tries++;
       if(tries >= 5){
-        box.textContent = 'That date does not match our records. Please contact your therapist.';
+        box.textContent = L.dobNoMatchStop;
         box.hidden = false;
         return; // button stays disabled
       }
-      box.textContent = 'That date does not match our records. Please try again.';
+      box.textContent = L.dobNoMatch;
       box.hidden = false; btn.disabled = false;
     });
   }
 
+  function scaleText(id){
+    const sent = req && req.scaleTexts && req.scaleTexts[id];
+    if(sent && sent.items && sent.freq) return sent;
+    const sc = SCALES[id];
+    return sc ? { ...sc, freq: FREQ, difficultyQ: DIFFICULTY_Q, difficulty: DIFFICULTY } : null;
+  }
+
   function scaleHtml(scaleId, rIdx, respondentName, showName){
-    const sc = SCALES[scaleId];
+    const sc = scaleText(scaleId);
     if(!sc) return '';
     const key = `${scaleId}_${rIdx}`;
     const qHtml = (text, name, opts, num) => `
@@ -317,9 +406,9 @@
     <section class="card" data-scale="${scaleId}" data-respondent="${rIdx}">
       <h2>${esc(sc.title)}${showName ? ` — ${esc(respondentName)}` : ''}</h2>
       <p class="sub">${esc(sc.stem)}</p>
-      ${scaleId === 'phq9' ? `<p class="notice">Your answers are not monitored in real time. If you are in crisis or thinking about harming yourself, call or text 9-8-8 (Suicide Crisis Helpline, Canada) or call 911.</p>` : ''}
-      ${sc.items.map((t,i)=>qHtml(t, `${key}_${i}`, FREQ, i+1)).join('')}
-      ${scaleId === 'phq9' ? qHtml(DIFFICULTY_Q, `${key}_diff`, DIFFICULTY, '') : ''}
+      ${scaleId === 'phq9' ? `<p class="notice">${esc(L.crisis)}</p>` : ''}
+      ${sc.items.map((t,i)=>qHtml(t, `${key}_${i}`, sc.freq, i+1)).join('')}
+      ${scaleId === 'phq9' ? qHtml(sc.difficultyQ, `${key}_diff`, sc.difficulty, '') : ''}
     </section>`;
   }
 
@@ -333,8 +422,8 @@
     };
     return `
     <section class="card" id="intakeCard">
-      <h2>${esc(it.title || 'Intake form')}</h2>
-      <p class="sub">Fields marked <span class="req">*</span> are required.</p>
+      <h2>${esc(it.title || L.intake)}</h2>
+      <p class="sub">${L.required}</p>
       ${(it.sections || []).map(sec => `
         <div class="intake-sec">${esc(sec.title)}</div>
         ${sec.note ? `<p class="intake-note">${esc(sec.note)}</p>` : ''}
@@ -347,21 +436,21 @@
     return `
     <div class="signer ${i > 0 ? 'locked' : ''}" data-signer="${i}">
       <div class="signer-head">
-        <strong>${isGuardian ? 'Parent / guardian signature' : (req.signers.length > 1 ? `Signature ${i+1} of ${req.signers.length}${s.name ? ' — ' + esc(s.name) : ''}` : 'Your signature')}</strong>
-        <span class="signer-state">${i > 0 ? 'Waiting for the previous signature' : ''}</span>
+        <strong>${isGuardian ? esc(L.guardianSig) : (req.signers.length > 1 ? `${esc(L.sigNofM(i+1, req.signers.length))}${s.name ? ' — ' + esc(s.name) : ''}` : esc(L.yourSig))}</strong>
+        <span class="signer-state">${i > 0 ? esc(L.waiting) : ''}</span>
       </div>
-      <label class="field" for="name_${i}">${isGuardian ? 'Parent / guardian full name' : 'Full name'}</label>
+      <label class="field" for="name_${i}">${esc(isGuardian ? L.guardianName : L.fullName)}</label>
       <input type="text" id="name_${i}" autocomplete="name" ${i > 0 ? 'disabled' : ''}>
-      ${isGuardian ? `<label class="field" for="rel_${i}">Relationship to the client</label><input type="text" id="rel_${i}" placeholder="e.g. mother, father, legal guardian">
-      <label class="field" for="cname_${i}">Client's full name (the young person receiving therapy)</label><input type="text" id="cname_${i}">` : ''}
+      ${isGuardian ? `<label class="field" for="rel_${i}">${esc(L.relLabel)}</label><input type="text" id="rel_${i}" placeholder="${esc(L.relPh)}">
+      <label class="field" for="cname_${i}">${esc(L.clientNameLabel)}</label><input type="text" id="cname_${i}">` : ''}
       <div class="sig-modes">
-        <button type="button" class="sig-mode active" data-sigmode="draw" data-i="${i}">Draw signature</button>
-        <button type="button" class="sig-mode" data-sigmode="type" data-i="${i}">Type signature</button>
+        <button type="button" class="sig-mode active" data-sigmode="draw" data-i="${i}">${esc(L.draw)}</button>
+        <button type="button" class="sig-mode" data-sigmode="type" data-i="${i}">${esc(L.type)}</button>
       </div>
-      <label class="field" id="padlabel_${i}" for="typed_${i}">Sign in the box with your finger or mouse</label>
+      <label class="field" id="padlabel_${i}" for="typed_${i}">${esc(L.drawHint)}</label>
       <input type="text" id="typed_${i}" autocomplete="off" hidden>
-      <div class="pad-wrap"><canvas id="pad_${i}"></canvas><div class="pad-hint">Sign here</div></div>
-      <div class="pad-actions"><span>Date: ${new Date().toLocaleDateString('en-CA', { year:'numeric', month:'long', day:'numeric' })}</span><button type="button" class="link-btn" data-clear="${i}">Clear</button></div>
+      <div class="pad-wrap"><canvas id="pad_${i}"></canvas><div class="pad-hint">${esc(L.padDraw)}</div></div>
+      <div class="pad-actions"><span>${esc(L.date)}: ${new Date().toLocaleDateString(L.locale, { year:'numeric', month:'long', day:'numeric' })}</span><button type="button" class="link-btn" data-clear="${i}">${esc(L.clear)}</button></div>
     </div>`;
   }
 
@@ -375,14 +464,14 @@
     if(c){
       html += `
       <section class="card" id="consentCard">
-        <h2>${esc(c.title || 'Consent form')}</h2>
+        <h2>${esc(c.title || L.consent)}</h2>
         <div class="consent-text">${sanitizeConsentHtml(c.html)}</div>
-        <div class="sign-title">Agreement and signature</div>
+        <div class="sign-title">${esc(L.agreement)}</div>
         <div id="checks">
           ${(c.checks||[]).map((t,i)=>`<label class="check-row"><input type="checkbox" data-check="${i}"><span>${esc(t)}</span></label>`).join('')}
         </div>
-        ${req.signers.length > 1 ? `<p class="sub" style="margin-top:12px;">Each person signs in turn. The second signature opens once the first is complete.</p>` : ''}
-        ${(req.twoSigners || req.coSignerName) ? `<p class="sub" style="margin-top:12px;">This form is signed by two people. Your partner signs separately, using their own link.</p>` : ''}
+        ${req.signers.length > 1 ? `<p class="sub" style="margin-top:12px;">${esc(L.seqNote)}</p>` : ''}
+        ${(req.twoSigners || req.coSignerName) ? `<p class="sub" style="margin-top:12px;">${esc(L.partnerNote)}</p>` : ''}
         ${req.signers.map(signerHtml).join('')}
       </section>`;
     }
@@ -390,7 +479,7 @@
       scales.forEach(id => { html += scaleHtml(id, rIdx, r.name, respondents.length > 1); });
     });
     html += `<div id="errorBox" class="error-box" hidden></div>
-      <button type="button" class="submit-btn" id="submitBtn">${c ? 'Sign and submit' : 'Submit'}</button>`;
+      <button type="button" class="submit-btn" id="submitBtn">${esc(c ? L.signSubmit : L.submit)}</button>`;
     app.innerHTML = html;
 
     if(c){
@@ -412,7 +501,7 @@
         app.querySelectorAll(`[data-sigmode][data-i="${i}"]`).forEach(x => x.classList.toggle('active', x === b));
         pads[i].setMode(mode);
         typed.hidden = mode !== 'type';
-        document.getElementById(`padlabel_${i}`).textContent = mode === 'type' ? 'Type your name; it appears below as your signature' : 'Sign in the box with your finger or mouse';
+        document.getElementById(`padlabel_${i}`).textContent = mode === 'type' ? L.typeHint : L.drawHint;
         if(mode === 'type'){
           if(!typed.value) typed.value = document.getElementById(`name_${i}`).value.trim();
           pads[i].setTyped(typed.value);
@@ -447,7 +536,7 @@
       document.getElementById(`typed_${i}`).disabled = !prevDone;
       el.querySelectorAll('.sig-mode').forEach(x => { x.disabled = !prevDone; });
       pads[i].setEnabled(prevDone);
-      el.querySelector('.signer-state').textContent = !prevDone ? 'Waiting for the previous signature' : (done ? '✓ Signed' : '');
+      el.querySelector('.signer-state').textContent = !prevDone ? L.waiting : (done ? L.signed : '');
       prevDone = done;
     });
   }
@@ -510,7 +599,7 @@
         mode = m; typedText = ''; ink = false;
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         hint.hidden = false;
-        hint.textContent = m === 'type' ? 'Your typed signature appears here' : 'Sign here';
+        hint.textContent = m === 'type' ? L.padType : L.padDraw;
         canvas.parentElement.classList.toggle('typed', m === 'type');
       },
       setTyped(text){
@@ -557,16 +646,16 @@
           })
         }))
       };
-      if(firstEmpty){ showError('Please fill in the required fields of the intake form (marked with *).', firstEmpty); return; }
+      if(firstEmpty){ showError(L.errIntake, firstEmpty); return; }
     }
 
     if(req.consent){
       const boxes = Array.from(app.querySelectorAll('[data-check]'));
       const unchecked = boxes.find(b => !b.checked);
-      if(unchecked){ showError('Please tick every statement in the consent form to continue.', unchecked.closest('.check-row')); return; }
+      if(unchecked){ showError(L.errChecks, unchecked.closest('.check-row')); return; }
       for(let i = 0; i < req.signers.length; i++){
         if(!signerComplete(i)){
-          showError(req.signers.length > 1 ? `Signature ${i+1} is not complete: a full name and a signature are both needed.` : 'Please fill in every name field and sign in the box.', app.querySelector(`[data-signer="${i}"]`));
+          showError(req.signers.length > 1 ? L.errSigN(i+1) : L.errSig, app.querySelector(`[data-signer="${i}"]`));
           return;
         }
       }
@@ -593,7 +682,7 @@
       const id = sec.dataset.scale, rIdx = Number(sec.dataset.respondent);
       const key = `${id}_${rIdx}`;
       const read = name => { const c = sec.querySelector(`input[name="${name}"]:checked`); return c ? Number(c.value) : null; };
-      const answers = SCALES[id].items.map((_,i)=>{
+      const answers = scaleText(id).items.map((_,i)=>{
         const v = read(`${key}_${i}`);
         if(v === null){ const q = sec.querySelector(`[data-q="${key}_${i}"]`); q.classList.add('missing'); if(!firstMissing) firstMissing = q; }
         return v;
@@ -605,9 +694,9 @@
       }
       payload.scales.push(entry);
     });
-    if(firstMissing){ showError('Some questions are not answered yet. They are marked in red.', firstMissing); return; }
+    if(firstMissing){ showError(L.errMissing, firstMissing); return; }
 
-    btn.disabled = true; btn.textContent = 'Sending…';
+    btn.disabled = true; btn.textContent = L.sending;
     try{
       // Answers and the "done" marker are saved together: either both are stored or neither.
       const batch = writeBatch(db);
@@ -617,25 +706,25 @@
       batch.set(doc(db, 'users', personId, 'formRequests', token, 'status', 'done'), { done: true });
       await batch.commit();
     }catch(e){
-      btn.disabled = false; btn.textContent = req.consent ? 'Sign and submit' : 'Submit';
+      btn.disabled = false; btn.textContent = req.consent ? L.signSubmit : L.submit;
       const denied = e && (e.code === 'permission-denied' || /permission/i.test(e.message || ''));
       showError(denied
-        ? 'These forms could not be submitted. They may already have been submitted, or the link has expired. Please contact your therapist.'
-        : 'These forms could not be sent. Please check your internet connection and try again.');
+        ? L.errDenied
+        : L.errNet);
       return;
     }
-    document.getElementById('pageTitle').textContent = 'Thank you';
+    document.getElementById('pageTitle').textContent = L.thanks;
     app.innerHTML = `
       <section class="card center">
-        <h2>Your forms were submitted</h2>
-        <p class="sub">${esc((req.therapist && req.therapist.name) || 'Your therapist')} has received them. You can close this page.</p>
+        <h2>${esc(L.submittedT)}</h2>
+        <p class="sub">${esc(L.received((req.therapist && req.therapist.name) || L.yourTherapist))}</p>
       </section>
       ${selfHarmFlag ? `
       <section class="support" role="alert">
-        <h3>Support is available right now</h3>
-        <p>Your therapist will see your answers, but not immediately. If you are thinking about harming yourself or feel unsafe:</p>
-        <p><a href="tel:988">Call or text 9-8-8</a> — Suicide Crisis Helpline, available across Canada at any hour.</p>
-        <p><a href="tel:911">Call 911</a> or go to the nearest emergency department if you are in immediate danger.</p>
+        <h3>${esc(L.supportT)}</h3>
+        <p>${esc(L.support1)}</p>
+        <p><a href="tel:988">${esc(L.support988)}</a>${esc(L.support988b)}</p>
+        <p><a href="tel:911">${esc(L.support911)}</a>${esc(L.support911b)}</p>
       </section>` : ''}`;
     window.scrollTo(0, 0);
   }
